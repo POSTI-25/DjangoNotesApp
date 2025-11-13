@@ -5,8 +5,8 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
-    return render(request, 'notes/welcome.html', {'today': datetime.today()})
+    return render(request, 'home/welcome.html', {'today': datetime.today()})
 
 @login_required(login_url = '/admin')
 def authorized(request):
-    return render(request, 'notes/authorized.html', {})
+    return render(request, 'home/authorized.html', {})
