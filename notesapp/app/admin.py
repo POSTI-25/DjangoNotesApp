@@ -3,7 +3,7 @@ from . import models
 
 # Register your models here.
 class NotesAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('title', 'created',)
 
 admin.site.register(models.Notes, NotesAdmin)
 
