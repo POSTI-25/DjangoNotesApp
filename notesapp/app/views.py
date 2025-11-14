@@ -6,21 +6,36 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
-class NotesDeleteView(DeleteView):
+class NotesDeleteView(LoginRequiredMixin, DeleteView):
     model = Notes
     success_url = '/smart/app/'
     template_name = 'app/notes_delete.html'
+    login_url = "/admin/login/"
 
-class NotesUpdateView(UpdateView):
+    def get_queryset(self):
+        return self.request.user.notes.all()
+
+
+class NotesUpdateView(LoginRequiredMixin, UpdateView):
     model = Notes
     success_url = '/smart/app/'
     form_class = NotesForm
+    login_url = "/admin/login/"
 
-class NotesCreateView(CreateView):
+    def get_queryset(self):
+        return self.request.user.notes.all()
+
+
+class NotesCreateView(LoginRequiredMixin, CreateView):
     model = Notes
     # fields = ['title' , 'text']
     success_url = '/smart/app/'
     form_class = NotesForm
+    login_url = "/admin/login/"
+
+    def get_queryset(self):
+        return self.request.user.notes.all()
+
 
 class NotesListView(LoginRequiredMixin, ListView):
     model = Notes
@@ -30,9 +45,14 @@ class NotesListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return self.request.user.notes.all()
 
-class NotesDetailView(DetailView):
+class NotesDetailView(LoginRequiredMixin, DetailView):
     model = Notes
     context_object_name = 'note'
+    login_url = "/admin/login/"
+
+    def get_queryset(self):
+        return self.request.user.notes.all()
+
 
 # def list(request):
 #     all_notes = Notes.objects.all()
