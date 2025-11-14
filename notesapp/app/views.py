@@ -1,9 +1,14 @@
 from django.shortcuts import render
 from .models import Notes
-from django.views.generic import CreateView, ListView, DetailView, UpdateView
+from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from .forms import NotesForm
 
 # Create your views here.
+
+class NotesDeleteView(DeleteView):
+    model = Notes
+    success_url = '/smart/app/'
+    template_name = 'app/notes_delete.html'
 
 class NotesUpdateView(UpdateView):
     model = Notes
