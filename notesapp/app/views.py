@@ -3,6 +3,7 @@ from .models import Notes
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from .forms import NotesForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 
@@ -33,8 +34,11 @@ class NotesCreateView(LoginRequiredMixin, CreateView):
     form_class = NotesForm
     login_url = "/admin/login/"
 
-    def get_queryset(self):
-        return self.request.user.notes.all()
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class NotesListView(LoginRequiredMixin, ListView):
