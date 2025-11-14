@@ -1,9 +1,14 @@
 from django.shortcuts import render
 from .models import Notes
-from django.views.generic import CreateView, ListView, DetailView
+from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from .forms import NotesForm
 
 # Create your views here.
+
+class NotesUpdateView(UpdateView):
+    model = Notes
+    success_url = '/smart/app/'
+    form_class = NotesForm
 
 class NotesCreateView(CreateView):
     model = Notes

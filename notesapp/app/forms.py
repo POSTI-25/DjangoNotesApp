@@ -14,8 +14,8 @@ class NotesForm(forms.ModelForm):
         }
 
 
-    def clean_title(self):
-        title = self.cleaned_data[('title')]
-        if not title or not title.strip():
-            raise forms.ValidationError("Title cannot be empty.")
-        return title
+    # def clean_title(self):
+    #     title = self.cleaned_data[('title')]
+    #     if not title or not title.strip():
+    #         raise forms.ValidationError("Title cannot be empty.")
+    #     return title
